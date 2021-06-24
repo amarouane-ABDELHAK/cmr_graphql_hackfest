@@ -24,7 +24,6 @@ async function searchCmrCollections(concept_id, short_name, page_size) {
 
     }
     const range_date = umm['TemporalExtents'][0]['RangeDateTimes'][0]
-    const spatial_extent = 
     umm['BeginningDateTime'] = range_date['BeginningDateTime']
     umm['EndingDateTime'] =range_date['EndingDateTime']
     const bbox = umm['SpatialExtent']['HorizontalSpatialDomain']['Geometry']['BoundingRectangles'][0]
