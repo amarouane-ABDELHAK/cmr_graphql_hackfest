@@ -59,7 +59,6 @@ const typeDefs = `
   type Instrument {
     ShortName: String
     LongName: String
-    
   }
 
   type Platform {
@@ -111,7 +110,7 @@ const typeDefs = `
 
   type Query {
     collection(concept_id: String, short_name: String, page_size: Int): Collection,
-    granules(concept_id: String, short_name: String, page_size: Int, offset: Int): [Granule],
+    granules(concept_id: String, provider: String, short_name: String, page_size: Int, offset: Int): [Granule],
     variables(concept_id: String, name: String): [Variable]
   }
 `;
@@ -119,11 +118,11 @@ const typeDefs = `
 const resolvers = {
   Query: {
     collection: (parent, { concept_id, short_name }, context, info) => searchCmrCollections(concept_id, short_name),
-    granules: (parent, { concept_id, short_name, page_size, offset }, context, info) => searchCmrGranules(parent,concept_id, short_name, page_size, offset),
+    granules: (parent, { concept_id, provider, short_name, page_size, offset }, context, info) => searchCmrGranules(parent,concept_id, provider, short_name, page_size, offset),
     variables: (parent, {concept_id, name}, context, info) => searchCmrUMMVars(concept_id, name)
   },
   Collection: {
-    granules: (parent, { concept_id, short_name, page_size, offset }, context, info) => searchCmrGranules(parent,concept_id, short_name, page_size, offset),
+    granules: (parent, { concept_id, provider, short_name, page_size, offset }, context, info) => searchCmrGranules(parent, concept_id, provider, short_name, page_size, offset),
     variables: (parent, args, context, info) => searchCmrVariables(parent),
     services: (parent, args, context, info) => searchCmrServices(parent)
   },
